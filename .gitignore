@@ -1,0 +1,19 @@
+#LO que quiero que no se suba a mi github:
+
+# Entornos virtuales
+.venv/
+venv/
+
+# Secretos
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Editor
+.vscode/
