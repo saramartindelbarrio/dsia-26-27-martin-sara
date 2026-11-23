@@ -274,3 +274,31 @@ def test_nvidia_metodo_desconocido():
             "metodo_inventado",
             mock=True
         )
+
+def test_nvidia_error_api(monkeypatch):
+    monkeypatch.setenv("NVIDIA_API_KEY", "clave_ficticia")
+
+    class CompletionsFalso:
+        def create(self, **kwargs):
+            raise nv.OpenAIError("Error simulado de NVIDIA")
+
+    class ClienteFalso:
+        def __init__(self, **kwargs):
+            self.chat = SimpleNamespace(
+                completions=CompletionsFalso()
+            )
+
+    monkeypatch.setattr(nv, "OpenAI", ClienteFalso)
+
+    with pytest.raises(
+        nv.AIClientError,
+        match="No se pudo obtener una respuesta de NVIDIA"
+    ):
+        nv.explicar_nubosidad(
+            "Madrid",
+            "15/11/2026",
+            65,
+            40,
+            "random_forest",
+            mock=False
+        )

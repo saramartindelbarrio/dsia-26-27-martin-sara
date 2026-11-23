@@ -1,16 +1,10 @@
 
 import os
-from dataclasses import dataclass
 from dotenv import load_dotenv
-from openai import OpenAI
+from openai import OpenAI, OpenAIError
 
 
 load_dotenv()
-
-@dataclass
-class AIResponse:
-    provider: str
-    text: str
 
 
 class AIClientError(RuntimeError):
@@ -146,32 +140,37 @@ def explicar_nubosidad(
         api_key=token,
         timeout=60
     )
+    try:
+        respuesta = cliente.chat.completions.create(
+            model=modelo,
+            messages=[
+                {
+                    "role": "user",
+                    "content": crear_prompt(
+                        ubicacion,
+                        fecha,
+                        nubosidad_forecast,
+                        nubosidad_predicted,
+                        metodo,
+                        recomendacion=recomendacion
+                    )
+                }
+            ],
+            temperature=0.3,
+            top_p=0.95,
+            max_tokens=300,
+            extra_body={
+                "chat_template_kwargs": {
+                    "enable_thinking": False
+                }
+            },
+            stream=False
+        )
 
-    respuesta = cliente.chat.completions.create(
-        model=modelo,
-        messages=[
-            {
-                "role": "user",
-                "content": crear_prompt(
-                    ubicacion,
-                    fecha,
-                    nubosidad_forecast,
-                    nubosidad_predicted,
-                    metodo,
-                    recomendacion=recomendacion
-                )
-            }
-        ],
-        temperature=1,
-        top_p=0.95,
-        max_tokens=300,
-        extra_body={
-            "chat_template_kwargs": {
-                "enable_thinking": False
-            }
-        },
-        stream=False
-    )
+    except OpenAIError as error:
+        raise AIClientError(
+            f"No se pudo obtener una respuesta de NVIDIA: {error}"
+        ) from error
 
     texto = respuesta.choices[0].message.content
 
@@ -182,65 +181,4 @@ def explicar_nubosidad(
 
     return texto.strip()
 
-
-def complete(
-    provider: str,
-    prompt: str,
-    model: str | None = None
-) -> AIResponse:
-    """Interfaz genérica para NVIDIA y modo mock."""
-
-    provider = provider.lower().strip()
-
-    if provider == "mock":
-        return AIResponse(
-            provider="mock",
-            text=f"[mock] Recibido: {prompt[:200]}"
-        )
-
-    if provider != "nvidia":
-        raise AIClientError(
-            f"Proveedor no soportado: {provider}"
-        )
-
-    token = os.getenv("NVIDIA_API_KEY")
-
-    if not token:
-        raise AIClientError(
-            "Falta NVIDIA_API_KEY en el entorno"
-        )
-
-    cliente = OpenAI(
-        base_url="https://integrate.api.nvidia.com/v1",
-        api_key=token,
-        timeout=60
-    )
-
-    respuesta = cliente.chat.completions.create(
-        model=model or os.getenv(
-            "NVIDIA_MODEL",
-            "nvidia/nemotron-3.5-super-vl-120b-a12b"
-        ),
-        messages=[
-            {"role": "user", "content": prompt}
-        ],
-        max_tokens=300,
-        extra_body={
-            "chat_template_kwargs": {
-                "enable_thinking": False
-            }
-        }
-    )
-
-    texto = respuesta.choices[0].message.content or ""
-
-    if not texto.strip():
-        raise AIClientError(
-            "NVIDIA devolvió una respuesta vacía"
-        )
-
-    return AIResponse(
-        provider="nvidia",
-        text=texto.strip()
-    )
 
