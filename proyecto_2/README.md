@@ -467,6 +467,18 @@ Para localidades fuera de dicha cobertura, AstroNight no puede obtener un valor 
 
 La consulta del raster no debe utilizar valores inventados para localidades sin datos disponibles.
 
+
+### 8.2. Archivos de ejemplo y resultados
+
+El repositorio incluye los siguientes archivos de ejemplo y resultados:
+
+- **`data/processed/muestra_datos_ml.xlsx`:** muestra de los datos procesados utilizados para el aprendizaje automático.
+- **`data/processed/comparacion_hiperparametros/resumen_hiperparametros.xlsx`:** resumen de los resultados de la comparación de hiperparámetros del modelo Random Forest.
+- **`data/processed/evaluacion_final/resultados_finales.xlsx`:** contiene las métricas MSE, MAE, RMSE y R² de Random Forest y Open-Meteo en los tres escenarios de evaluación: temporal, geográfico y combinado.
+- **`data/processed/predicciones_la_hiruela_es_3119603.csv`** (EJEMPLO) contiene predicciones horarias generadas por `predecir.py`, incluyendo la nubosidad original de Open-Meteo, la estimación final de AstroNight y el método empleado.
+
+Estos archivos permiten examinar los datos y resultados principales sin necesidad de ejecutar el pipeline histórico completo.
+
 ## 9. Explicaciones mediante NVIDIA
 
 Una vez generado el CSV, es posible solicitar una explicación simulada:
@@ -543,6 +555,7 @@ Se utiliza `pytest` para comprobar el funcionamiento de los distintos componente
 |---|---|
 | `tests/test_descargar_datos.py` | Comprueba los reintentos ante errores HTTP temporales y la propagación de errores no reintentables, sin realizar peticiones reales |
 | `tests/test_predecir.py` | Carga del modelo sklearn e inferencia |
+| `tests/test_procesar_datos.py` | Comprueba que los datos históricos de Open-Meteo Previous Runs y ERA5 se combinan correctamente, que se generan los siete horizontes de predicción (lead_days) y que se detectan fechas duplicadas. |
 | `tests/test_integracion_API_simulada.py` | Flujo de predicción con servicios externos simulados |
 | `tests/test_metricas.py` | Comprobación del cálculo de las métricas |
 | `tests/test_nvidia.py` | Comprueba la generación de prompts, el modo mock, las validaciones, la integración con CSV, las respuestas simuladas de NVIDIA y la gestión de errores de la API |
