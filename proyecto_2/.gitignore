@@ -1,0 +1,33 @@
+#LO que quiero que no se suba a mi github:
+
+# Entornos virtuales
+.venv/
+venv/
+
+# Secretos
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Editor
+.vscode/
+
+# Informes de cobertura
+.coverage
+htmlcov/
+
+# Datos descargados de APIs
+data/raw/
+
+# Dataset histórico de entrenamiento
+data/processed/datos_ml.csv
+
+
+# Resultados generados
+data/processed/predicciones_*.csv
