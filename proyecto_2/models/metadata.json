@@ -1,0 +1,26 @@
+{
+    "algoritmo": "RandomForestRegressor",
+    "max_depth": 8,
+    "min_samples_leaf": 20,
+    "n_estimators": 100,
+    "features": [
+        "temperature_2m",
+        "wind_speed_10m",
+        "precipitation",
+        "relative_humidity_2m",
+        "dew_point_2m",
+        "cloud_cover_forecast",
+        "lead_days"
+    ],
+    "target": "cloud_cover_actual",
+    "fecha_inicio": "2024-01-26 00:00:00+00:00",
+    "fecha_fin": "2025-12-31 23:00:00+00:00",
+    "n_filas": 593040,
+    "ubicaciones": [
+        "a_coruna",
+        "almeria",
+        "leon",
+        "madrid",
+        "santa_cruz_tenerife"
+    ]
+}
