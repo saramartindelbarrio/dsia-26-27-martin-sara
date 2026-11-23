@@ -35,6 +35,7 @@ Variables de entrada:
 - Horizonte de predicción (`lead_days`).
 
 Documentación: https://open-meteo.com/en/docs/previous-runs-api
+Fecha de descarga: 11/11/2026
 
 ### 2.2. Open-Meteo Historical Weather API / ERA5
 
@@ -43,6 +44,7 @@ Se utiliza como referencia histórica de nubosidad (`cloud_cover_actual`) para e
 ERA5 proporciona datos de reanálisis meteorológico. En este proyecto se emplean como referencia para comparar las previsiones, no como observaciones instrumentales directas de cada localidad.
 
 Documentación: https://open-meteo.com/en/docs/historical-weather-api
+Fecha de descarga: 11/11/2026
 
 ### 2.3. Open-Meteo Forecast API y Geocoding API
 
@@ -621,6 +623,12 @@ https://github.com/saramartindelbarrio/dsia-26-27-martin-sara/actions/workflows/
 [![Tests AstroNight Proyecto II](https://github.com/saramartindelbarrio/dsia-26-27-martin-sara/actions/workflows/tests_proyecto_2.yml/badge.svg)](https://github.com/saramartindelbarrio/dsia-26-27-martin-sara/actions/workflows/tests_proyecto_2.yml)
 
 La evaluación final del modelo, que requiere el conjunto de datos históricos completo, se ejecuta de manera independiente mediante evaluacion_final.py y no forma parte de las pruebas automáticas de GitHub Actions.
+
+### 11.1. Uso del modo mock en CI
+
+Las pruebas automatizadas ejecutadas en GitHub Actions utilizan el modo `mock` para comprobar la integración con NVIDIA sin realizar peticiones reales a su API ni necesitar credenciales.
+
+Las pruebas que simulan el cliente de NVIDIA mediante `monkeypatch` tampoco realizan conexiones externas. El modo real queda reservado para ejecuciones con una clave de API válida.
 
 ## 12. Limitaciones
 

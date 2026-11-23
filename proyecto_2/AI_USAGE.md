@@ -68,11 +68,20 @@ Durante el desarrollo de AstroNight AI se ha utilizado **ChatGPT (OpenAI)** como
 
 ### 6.2. Sugerencias aceptadas y modificadas
 
-Se han incorporado propuestas de ChatGPT relacionadas con la organización modular del proyecto, el uso de `joblib` para persistir el modelo, la implementación de pruebas automatizadas y la separación entre entrenamiento, evaluación e inferencia.
+Durante el desarrollo de AstroNight AI se han utilizado herramientas de inteligencia artificial como apoyo para la organización modular del proyecto, la implementación de pruebas automatizadas, la integración de servicios externos y la documentación.
 
-También se han revisado y adaptado propuestas para la integración de la API de NVIDIA, la gestión de variables de entorno y la presentación de los resultados de evaluación.
+Entre las propuestas aceptadas y adaptadas destacan:
 
-Las sugerencias no se han considerado correctas automáticamente: se han contrastado con las necesidades del proyecto, las ejecuciones del código y los resultados obtenidos.
+- **Organización del proyecto:** separación de los procesos de descarga, preparación de datos, entrenamiento, evaluación e inferencia, así como el uso de `joblib` para guardar y reutilizar el modelo Random Forest.
+
+- **Validación del modelo:** utilización de `TimeSeriesSplit` para la validación temporal, manteniendo separados los datos de 2026 y las localidades de Barcelona y Granada para la evaluación final.
+
+- **Cliente NVIDIA:** revisión de la implementación para eliminar una llamada duplicada a la API, incorporar la gestión de errores mediante `AIClientError` y ajustar `temperature` a `0.3`. Los cambios se comprobaron mediante las pruebas automatizadas.
+
+- **Evaluación y documentación:** utilización del MSE como métrica principal, complementándolo con MAE, RMSE y R², y documentación de los resultados, incluyendo las métricas en las que Random Forest no mejora las previsiones originales de Open-Meteo.
+
+Las sugerencias de las herramientas de IA no se han aceptado automáticamente, sino que se han revisado y adaptado a los objetivos del proyecto. Su funcionamiento se ha comprobado mediante la ejecución del código, las pruebas automatizadas y los resultados obtenidos.
+
 
 ### 6.3. Verificación y responsabilidad
 
