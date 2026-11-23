@@ -1,0 +1,48 @@
+
+name: Tests AstroNight Proyecto II
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "proyecto_2/**"
+      - ".github/workflows/tests_proyecto_2.yml"
+
+  pull_request:
+    branches: [main]
+    paths:
+      - "proyecto_2/**"
+      - ".github/workflows/tests_proyecto_2.yml"
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: Pytest Python 3.12
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: proyecto_2
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: proyecto_2/requirements.txt
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install -r requirements.txt
+
+      - name: Ejecutar tests con pytest
+        run: |
+          python -m pytest -v
