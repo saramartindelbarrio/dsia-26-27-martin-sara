@@ -6,17 +6,6 @@
 #2. Descarga de datos para previsiones en el momento
 #2.1 Forecast API 
 
-'''
-La descarga de datos históricos mediante Open-Meteo 
-suponía 303 llamadas equivalentes para Previous Runs y 7,2 para ERA5, 
-un total de 310,2 por ubicación. Teniendo en cuenta que he usado 7 ubicaciones 
-el consumo estimado es de 2.170 aproximadamente.
-La versión gratuita tiene límites de 600 llamadas por minuto, 5.000 por hora.  
-Debido a estas limitaciones, se produjeron errores durante las descargas, 
-por lo que parte de los datos tuvieron que obtenerse manualmente con distintas VPN. 
-Una versión de pago habría permitido trabajar con límites superiores y que este script funcionara correctamente.
-
-'''
 
 import argparse
 import logging
