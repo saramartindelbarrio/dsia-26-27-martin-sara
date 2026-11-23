@@ -35,7 +35,8 @@ Variables de entrada:
 - Horizonte de predicción (`lead_days`).
 
 Documentación: https://open-meteo.com/en/docs/previous-runs-api
-Fecha de descarga: 11/11/2026
+
+Fecha de descarga: 11/11/2026 (Datos -inicio 2024-01-26 --fin 2026-10-31)
 
 ### 2.2. Open-Meteo Historical Weather API / ERA5
 
@@ -44,7 +45,8 @@ Se utiliza como referencia histórica de nubosidad (`cloud_cover_actual`) para e
 ERA5 proporciona datos de reanálisis meteorológico. En este proyecto se emplean como referencia para comparar las previsiones, no como observaciones instrumentales directas de cada localidad.
 
 Documentación: https://open-meteo.com/en/docs/historical-weather-api
-Fecha de descarga: 11/11/2026
+
+Fecha de descarga: 11/11/2026 (Datos -inicio 2024-01-26 --fin 2026-10-31)
 
 ### 2.3. Open-Meteo Forecast API y Geocoding API
 
